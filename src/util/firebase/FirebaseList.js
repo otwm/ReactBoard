@@ -51,9 +51,9 @@ export class FirebaseList {
      * @returns {Promise}
      */
     remove(key) {
-        return new Promise((resolve, reject) -> {
+        return new Promise((resolve, reject) => {
             firebaseDatabase.ref(`${this._path}/$key`)
-                .remove(error, error ? reject(error) : resolve());
+                .remove(error => error ? reject(error) : resolve());
         });
     }
 
@@ -64,16 +64,16 @@ export class FirebaseList {
      * @returns {Promise}
      */
     set(key, value) {
-        return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject) => {
             firebaseDatabase.ref(`${this._path}/$key`)
-                .set(value, error ? reject(error) : resolve());
+                .set(value, error => error ? reject(error) : resolve());
         });
     }
 
     update(key, value) {
-        return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject) => {
             firebaseDatabase.ref(`${this._path}/$key`)
-                .update(value, error ? reject(error) : resolve());
+                .update(value, error => error ? reject(error) : resolve());
         });
     }
 
@@ -88,7 +88,7 @@ export class FirebaseList {
 
         let list = [];
 
-        ref.once('value', ()=> {
+        ref.once('value', () => {
             initialized = true;
             emit(this._actions.onLoad(list));//action은 onLoad가 존재하여야 한다.
         });
@@ -101,11 +101,11 @@ export class FirebaseList {
             }
         });
 
-        ref.on('child_changed', snapshot=> {
+        ref.on('child_changed', snapshot => {
             emit(this._actions.onChange(this.unwrapSnapShot(snapshot)));
         });
 
-        ref.on('child_removed', snapshot=> {
+        ref.on('child_removed', snapshot => {
             emit(this._actions.onRemove(this.unwrapSnapShot(snapshot)));
         });
 
