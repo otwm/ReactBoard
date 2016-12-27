@@ -32,7 +32,7 @@ export class ArticleForm extends Component {
             content: content
         });
 
-        this.props.createArticle(this.state.title, this.state.content);
+        this.props.createArticle(title, content);
 
         browserHistory.push('/');
     }
