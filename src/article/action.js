@@ -1,4 +1,4 @@
-import articleList from './articleList';
+import {articleList} from './articleList';
 import {
     SAVE,
     INSERT,
@@ -11,7 +11,7 @@ import {
 export function createArticle(title, content) {
     return dispatch => {
         articleList.push({title, content})
-            .catch(error=>dispatch(createArticleError(error)));
+            .catch(error => dispatch(createArticleError(error)));
     };
 }
 

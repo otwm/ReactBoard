@@ -8,8 +8,11 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
 import {Link} from "react-router";
+import { browserHistory } from 'react-router'
 
 export class ArticleForm extends Component {
+
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -21,7 +24,17 @@ export class ArticleForm extends Component {
 
     onSubmit(event) {
         event.preventDefault();
+        const title = this.refs.title.getValue();
+        const content = this.refs.content.getValue();
+
+        this.setState({
+            title: title,
+            content: content
+        });
+
         this.props.createArticle(this.state.title, this.state.content);
+
+        browserHistory.push('/');
     }
 
     render() {
@@ -44,14 +57,14 @@ export class ArticleForm extends Component {
                                 hintText="제목을 입력하여 주십시오."
                                 floatingLabelText="제목"
                                 fullWidth={true}
-                                value={this.state.title}
+                                ref="title"
                             />
                             <TextField
                                 hintText="내용을 기입해 주세요."
                                 floatingLabelText="내용"
                                 fullWidth={true}
                                 multiLine={true}
-                                value={this.state.content}
+                                ref="content"
                                 rows={6}
                             />
                         </div>

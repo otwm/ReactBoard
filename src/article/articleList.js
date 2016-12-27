@@ -7,4 +7,4 @@ export const articleList = new FirebaseList({
     onChange: articleActions.updateArticleSuccess,
     onLoad: articleActions.loadArticlesSuccess,
     onRemove: articleActions.deleteArticleSuccess
-}, Article);
+}, Article,'article');
