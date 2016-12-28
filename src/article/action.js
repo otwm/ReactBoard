@@ -5,7 +5,8 @@ import {
     INSERT_SUCCESS,
     INSERT_ERROR,
     UPDATE,
-    DELETE
+    DELETE,
+    LOAD_ARTICLES_SUCCESS
 } from './actionTypes';
 
 export function createArticle(title, content) {
@@ -32,7 +33,11 @@ export function createArticleError(error) {
 export function updateArticleSuccess() {
 }
 
-export function loadArticlesSuccess() {
+export function loadArticlesSuccess(articles) {
+    return {
+        type: LOAD_ARTICLES_SUCCESS,
+        payload: articles
+    }
 }
 
 export function deleteArticleSuccess() {

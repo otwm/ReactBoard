@@ -7,6 +7,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import {Link} from "react-router";
 import Divider from 'material-ui/Divider';
+import { articleActions } from '~/article';
 
 import {
     Table,
@@ -19,6 +20,11 @@ import {
 } from "material-ui/Table";
 
 class ArticleList extends Component {
+
+    componentWillMount() {
+        this.props.loadArticle();
+    }
+
     render() {
         return (
             <div>
@@ -80,7 +86,7 @@ class List extends Component {
                     </TableHeader>
                     <TableBody>
                         {
-                            this.props.articles.map((row, index)=>(
+                            this.props.articles.map((row, index) => (
                                 <TableRow key={row.key}>
                                     <TableRowColumn>{row.no}</TableRowColumn>
                                     <TableRowColumn>{row.title}</TableRowColumn>
@@ -105,14 +111,20 @@ class Pagination extends Component {
 }
 
 const mapStateToProps = createSelector(
-    (state)=>state.articles,
-    (articles)=>({
+    (state) => state.articles,
+    (articles) => ({
         articles
     })
 );
 
+const mapDispatchToProps = Object.assign(
+    {},
+    articleActions
+);
+
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(ArticleList);
 
 
