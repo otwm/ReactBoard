@@ -1,11 +1,7 @@
 import {articleList} from './articleList';
 import {
-    SAVE,
-    INSERT,
-    INSERT_SUCCESS,
-    INSERT_ERROR,
-    UPDATE,
-    DELETE,
+    CREATE_ARTICLE_SUCCESS,
+    CREATE_ARTICLE_ERROR,
     LOAD_ARTICLES_SUCCESS
 } from './actionTypes';
 
@@ -18,14 +14,14 @@ export function createArticle(title, content) {
 
 export function createArticleSuccess(article) {
     return {
-        type: INSERT_SUCCESS,
+        type: CREATE_ARTICLE_SUCCESS,
         payload: article
     };
 }
 
 export function createArticleError(error) {
     return {
-        type: INSERT_ERROR,
+        type: CREATE_ARTICLE_ERROR,
         payload: error
     };
 }
