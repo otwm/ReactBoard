@@ -5,8 +5,10 @@ import {createSelector} from "reselect";
 import Header from "./Header";
 import {Card, CardActions} from "material-ui/Card";
 import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from 'material-ui/FlatButton';
 import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
+import Dialog from 'material-ui/Dialog';
 import {Link} from "react-router";
 import {browserHistory} from 'react-router'
 import {firebaseDatabase} from '@/firebase/firebase';
@@ -16,7 +18,13 @@ export class ArticleForm extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            open: false
+        };
         this.onSubmit = this.onSubmit.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     componentWillMount() {
@@ -37,8 +45,31 @@ export class ArticleForm extends Component {
         browserHistory.push('/');
     }
 
+    onDelete(event) {
+        event.preventDefault();
+        this.setState({open: true});
+    }
+
+    delete() {
+        this.props.deleteArticle(this.props.article);
+        browserHistory.push('/');
+    }
+
+    handleClose(event) {
+        event.preventDefault();
+        this.setState({open: false});
+    }
+
     render() {
         const {article} = this.props;
+        const deleteButtons = [
+            <FlatButton label="닫기" primary={true}
+                        onTouchTap={this.handleClose}
+            />,
+            <RaisedButton label="삭제" secondary={true}
+                          onTouchTap={this.delete}
+            />
+        ];
         return (
             <div>
                 <Header/>
@@ -50,6 +81,9 @@ export class ArticleForm extends Component {
                             />
                             <RaisedButton label="저장" primary={true}
                                           onTouchTap={this.onSubmit}
+                            />
+                            <RaisedButton label="삭제" secondary={true}
+                                          onTouchTap={this.onDelete}
                             />
                         </CardActions>
                         <Divider />
@@ -74,6 +108,15 @@ export class ArticleForm extends Component {
                             />
                         </div>
                     </Card>
+                    <Dialog
+                        title="삭제하시겠습니까?"
+                        actions={deleteButtons}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleClose}
+                    >
+                        데이터가 영구적으로 삭제 됩니다.
+                    </Dialog>
                 </div>
             </div>
         );

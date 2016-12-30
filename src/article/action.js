@@ -6,6 +6,8 @@ import {
     UPDATE_ARTICLE,
     LOAD_ARTICLES_SUCCESS,
     LOAD_ARTICLE_SUCCESS,
+    DELETE_ARTICLE_SUCCESS,
+    DELETE_ARTICLE_ERROR,
     UNLOAD_ARTICLES_SUCCESS
 } from './actionTypes';
 
@@ -50,6 +52,20 @@ export function loadArticlesSuccess(articles) {
     }
 }
 
+export function deleteArticle(article) {
+    return dispatch => {
+        articleList.remove(article.id)
+            .catch(error => dispatch(deleteArticleError(error)));
+    };
+}
+
+export function deleteArticleError(error) {
+    return {
+        type: DELETE_ARTICLE_ERROR,
+        payload: error
+    };
+}
+
 export function loadArticleSuccess(article) {
     return {
         type: LOAD_ARTICLE_SUCCESS,
@@ -57,7 +73,11 @@ export function loadArticleSuccess(article) {
     }
 }
 
-export function deleteArticleSuccess() {
+export function deleteArticleSuccess(article) {
+    return {
+        type: DELETE_ARTICLE_SUCCESS,
+        payload: article
+    };
 }
 
 export function loadArticles() {

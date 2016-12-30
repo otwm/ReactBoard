@@ -47,12 +47,12 @@ export class FirebaseList {
 
     /**
      *
-     * @param key
+     * @param id
      * @returns {Promise}
      */
-    remove(key) {
+    remove(id) {
         return new Promise((resolve, reject) => {
-            firebaseDatabase.ref(`${this._path}/$key`)
+            firebaseDatabase.ref(`${this._path}/${id}`)
                 .remove(error => error ? reject(error) : resolve());
         });
     }
