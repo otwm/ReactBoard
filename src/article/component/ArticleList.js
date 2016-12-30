@@ -25,6 +25,10 @@ class ArticleList extends Component {
         this.props.loadArticles();
     }
 
+    componentWillUnmount() {
+        this.props.unloadArticles();
+    }
+
     render() {
         return (
             <div>

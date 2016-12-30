@@ -16,25 +16,15 @@ export class ArticleForm extends Component {
 
     constructor(props, context) {
         super(props, context);
-        this.state = {};
-        // var $this = this;
-        // if (this.props.params.id) {
-        //     firebaseDatabase
-        //         .ref(`article/${this.props.params.id}`)
-        //         .once('value', (snapshot) => {
-        //             let data = snapshot.val();
-        //             data.id = snapshot.key;
-        //             $this.state = {
-        //                 article: new Article(data)
-        //             };
-        //
-        //         });
-        // }
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentWillMount() {
         this.props.loadArticles();
+    }
+
+    componentWillUnmount() {
+        this.props.unloadArticles();
     }
 
     onSubmit(event) {
