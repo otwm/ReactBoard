@@ -3,14 +3,7 @@ import {firebaseDatabase} from "./firebase";
 /**
  * 파이어 베이스 리스트
  */
-export class FirebaseList {
-
-    /**
-     *
-     * @param actions 리스트의 기본 이벤트 핸들러 액션
-     * @param model
-     * @param path
-     */
+export class FirebaseRecord {
     constructor(actions, model, path = null) {
         this._actions = actions;
         this._model = model;
@@ -31,30 +24,6 @@ export class FirebaseList {
      */
     set path(path) {
         this._path = path;
-    }
-
-    /**
-     *
-     * @param value
-     * @returns {Promise}
-     */
-    push(value) {
-        return new Promise((resolve, reject) => {
-            firebaseDatabase.ref(this._path)
-                .push(value, error => error ? reject(error) : resolve());
-        });
-    }
-
-    /**
-     *
-     * @param key
-     * @returns {Promise}
-     */
-    remove(key) {
-        return new Promise((resolve, reject) => {
-            firebaseDatabase.ref(`${this._path}/$key`)
-                .remove(error => error ? reject(error) : resolve());
-        });
     }
 
     /**
@@ -129,5 +98,4 @@ export class FirebaseList {
         data.id = snapshot.key;
         return new this._model(data);
     }
-
 }

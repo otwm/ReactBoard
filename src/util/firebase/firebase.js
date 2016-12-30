@@ -13,8 +13,11 @@ export const firebaseApp = firebase.initializeApp(config);
  */
 export const firebaseDatabase = firebaseApp.database();
 
+
 /**
  * firebase auth shotcut
  * @type {any}
  */
 export const firebaseAuth = firebaseApp.auth();
+
+firebase.database.enableLogging(true, true);

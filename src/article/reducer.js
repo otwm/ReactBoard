@@ -1,14 +1,19 @@
 import {
-    LOAD_ARTICLES_SUCCESS
+    LOAD_ARTICLES_SUCCESS,
+    UPDATE_ARTICLE
 } from "./actionTypes";
-import {Set} from "immutable";
+import {List} from "immutable";
 
-export const Articles = new Set();
+export const Articles = new List();
 
 export function articlesReducer(state = Articles, {payload, type}) {
     switch (type) {
+        case UPDATE_ARTICLE:
+            return state.update(
+                state.findIndex((item) => item.get("id") === payload.id)
+                , (item) => (payload));
         case LOAD_ARTICLES_SUCCESS:
-            return new Set(payload);
+            return new List(payload);
         default:
             return state;
     }

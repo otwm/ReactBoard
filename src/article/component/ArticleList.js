@@ -7,7 +7,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import {Link} from "react-router";
 import Divider from 'material-ui/Divider';
-import { articleActions } from '~/article';
+import {articleActions} from '~/article';
 
 import {
     Table,
@@ -22,7 +22,7 @@ import {
 class ArticleList extends Component {
 
     componentWillMount() {
-        this.props.loadArticle();
+        this.props.loadArticles();
     }
 
     render() {
@@ -87,9 +87,11 @@ class List extends Component {
                     <TableBody>
                         {
                             this.props.articles.map((row, index) => (
-                                <TableRow key={row.key}>
+                                <TableRow key={row.id}>
                                     <TableRowColumn>{row.no}</TableRowColumn>
-                                    <TableRowColumn>{row.title}</TableRowColumn>
+                                    <TableRowColumn>
+                                        <Link to={`/articles/${row.id}`}>{row.title}</Link>
+                                    </TableRowColumn>
                                     <TableRowColumn>{row.date}</TableRowColumn>
                                     <TableRowColumn>{row.hit}</TableRowColumn>
                                     <TableRowColumn>{row.author}</TableRowColumn>

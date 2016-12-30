@@ -1,8 +1,11 @@
 import {articleList} from './articleList';
+import {articleRecord} from './articleRecord';
 import {
     CREATE_ARTICLE_SUCCESS,
     CREATE_ARTICLE_ERROR,
-    LOAD_ARTICLES_SUCCESS
+    UPDATE_ARTICLE,
+    LOAD_ARTICLES_SUCCESS,
+    LOAD_ARTICLE_SUCCESS
 } from './actionTypes';
 
 export function createArticle(title, content) {
@@ -25,6 +28,12 @@ export function createArticleError(error) {
         payload: error
     };
 }
+export function updateArticle(article) {
+    return {
+        type: UPDATE_ARTICLE,
+        payload: article
+    }
+}
 
 export function updateArticleSuccess() {
 }
@@ -36,11 +45,24 @@ export function loadArticlesSuccess(articles) {
     }
 }
 
+export function loadArticleSuccess(article) {
+    return {
+        type: LOAD_ARTICLE_SUCCESS,
+        payload: article
+    }
+}
+
 export function deleteArticleSuccess() {
+}
+
+export function loadArticles() {
+    return (dispatch) => {
+        articleList.subscribe(dispatch)
+    };
 }
 
 export function loadArticle() {
     return (dispatch) => {
-        articleList.subscribe(dispatch)
+        articleRecord.subscribe(dispatch)
     };
 }
