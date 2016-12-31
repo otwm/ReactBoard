@@ -37,10 +37,16 @@ export class ArticleForm extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        const title = this.refs.title.getValue();
-        const content = this.refs.content.getValue();
+        let [{article}, {title, content}] = [this.props, this.refs];
 
-        this.props.createArticle(title, content);
+        if (this.props.params.id) {
+            this.props.updateArticle(article.merge({
+                title: title.getValue(),
+                content: content.getValue()
+            }).toJSON());
+        } else {
+            this.props.createArticle(title.getValue(), content.getValue());
+        }
 
         browserHistory.push('/');
     }
@@ -123,9 +129,8 @@ export class ArticleForm extends Component {
     }
 
     _handleTextFieldChange(e) {
-        let [{article}, {title, content}] = [this.props, this.refs];
-
-        this.props.updateArticle(article.merge({
+        let [{article = new Article()}, {title, content}] = [this.props, this.refs];
+        this.props.updateArticleByLocal(article.merge({
             title: title.getValue(),
             content: content.getValue()
         }));
@@ -134,11 +139,12 @@ export class ArticleForm extends Component {
 
 const mapStateToProps = createSelector(
     (state, props) => {
-        if (props.params.id) {
-            return state.articles.filter(
-                article => article.id === props.params.id
-            ).first();
-        }
+        const filtered = state.articles.filter(
+            article => {
+                if (props.params.id)return article.id === props.params.id;
+                return !article.id;
+            });
+        if (filtered.size > 0) return filtered.first();
         return new Article();
     },
     (article) => ({

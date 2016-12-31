@@ -3,7 +3,9 @@ import {articleRecord} from './articleRecord';
 import {
     CREATE_ARTICLE_SUCCESS,
     CREATE_ARTICLE_ERROR,
-    UPDATE_ARTICLE,
+    UPDATE_ARTICLE_LOCAL,
+    UPDATE_ARTICLE_ERROR,
+    UPDATE_ARTICLE_SUCCESS,
     LOAD_ARTICLES_SUCCESS,
     LOAD_ARTICLE_SUCCESS,
     DELETE_ARTICLE_SUCCESS,
@@ -35,14 +37,33 @@ export function createArticleError(error) {
         payload: error
     };
 }
-export function updateArticle(article) {
+
+export function updateArticleByLocal(article) {
     return {
-        type: UPDATE_ARTICLE,
+        type: UPDATE_ARTICLE_LOCAL,
         payload: article
     }
 }
 
-export function updateArticleSuccess() {
+export function updateArticle(article) {
+    return dispatch => {
+        articleList.update(article.id, article)
+            .catch(error => dispatch(updateTaskError(error)));
+    };
+}
+
+export function updateArticleSuccess(article) {
+    return {
+        type: UPDATE_ARTICLE_SUCCESS,
+        payload: article
+    }
+}
+
+export function updateTaskError(error) {
+    return {
+        type: UPDATE_ARTICLE_ERROR,
+        payload: error
+    }
 }
 
 export function loadArticlesSuccess(articles) {

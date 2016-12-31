@@ -59,20 +59,20 @@ export class FirebaseList {
 
     /**
      *
-     * @param key
+     * @param id
      * @param value
      * @returns {Promise}
      */
-    set(key, value) {
+    set(id, value) {
         return new Promise((resolve, reject) => {
-            firebaseDatabase.ref(`${this._path}/$key`)
+            firebaseDatabase.ref(`${this._path}/${id}`)
                 .set(value, error => error ? reject(error) : resolve());
         });
     }
 
-    update(key, value) {
+    update(id, value) {
         return new Promise((resolve, reject) => {
-            firebaseDatabase.ref(`${this._path}/$key`)
+            firebaseDatabase.ref(`${this._path}/${id}`)
                 .update(value, error => error ? reject(error) : resolve());
         });
     }
