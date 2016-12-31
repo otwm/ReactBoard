@@ -10,6 +10,7 @@
 * material ui, 파베, 그리고 로컬 상태와 서버 상태에 대해..., 어쨌든 매터리얼은 좀 번거롭다.
 * 폼 시리얼 라이즈에 대해서도 한번 생각해보자. 예전부터 하고 있었던 것.
 * jsr-303 같은 거는 없나요???
+* 클라이언트에서 관계를 가지는 객체 조회 시 orm 처럼 관련 객체를 가지고 올 수 없는 가?(하이버네이트에서는 프록 시를 이용해서 가져왓엇다!)
 
 # 이것은 뭐 다?!
 * https://github.com/davideast/Querybase#querybase-is-in-an-experiment-and-not-for-production-appssitesanything
@@ -21,6 +22,7 @@
 * 현재는 좀 더 고도화된 라이브러리를 기대하는 것은 조금 어려울 수도...
 * 왠지 복잡한 쿼리를 지원하는 것은 당장은 어려울 수도 있다. 쥰내 아쉽네... 클라이언트에 다 넘기고,
 성능 이슈가 발생할 때, 서버 사이드(파베, 별도의 쿼리 용 노드 서버)를 활용하도록 하자!
+클라에는 이뮤터블이 있으니 잘 활용해 보자.(그룹바이도 지원한다.)
 * https://github.com/MicheleBertoli/react-fix-it
  => 긋!
 * https://www.npmjs.com/package/react-immutable-proptypes

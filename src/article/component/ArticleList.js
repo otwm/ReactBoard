@@ -21,12 +21,30 @@ import {
 
 class ArticleList extends Component {
 
+    constructor(){
+        super();
+        this.search = this.search.bind(this);
+    }
+
     componentWillMount() {
-        this.props.loadArticles();
+        this.props.loadArticles(function () {
+            },
+            (() => {
+                this.props.filterArticles({
+                    title: this.refs.title.getValue()
+                });
+            }).bind(this)
+        );
     }
 
     componentWillUnmount() {
         this.props.unloadArticles();
+    }
+
+    search(){
+        this.props.filterArticles({
+            title: this.refs.title.getValue()
+        });
     }
 
     render() {
@@ -39,8 +57,9 @@ class ArticleList extends Component {
                             <TextField
                                 hintText="제목, 내용 , 이름으로 검색"
                                 floatingLabelText="검색어"
+                                ref="title"
                             />
-                            <RaisedButton label="검색"/>
+                            <RaisedButton label="검색" onTouchTap={this.search}/>
                             <RaisedButton label="추가" primary={true}
                                           containerElement={<Link to="/articles/form"/>}
                             />

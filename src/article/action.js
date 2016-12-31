@@ -10,7 +10,8 @@ import {
     LOAD_ARTICLE_SUCCESS,
     DELETE_ARTICLE_SUCCESS,
     DELETE_ARTICLE_ERROR,
-    UNLOAD_ARTICLES_SUCCESS
+    UNLOAD_ARTICLES_SUCCESS,
+    FILTER_ARTICLES
 } from './actionTypes';
 
 export function createArticle(title, content) {
@@ -120,3 +121,9 @@ export function loadArticle() {
     };
 }
 
+export function filterArticles(query) {
+    return {
+        type: FILTER_ARTICLES,
+        payload: query
+    }
+}
