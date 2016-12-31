@@ -6,9 +6,9 @@ import {Card, CardActions} from "material-ui/Card";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import {Link} from "react-router";
-import Divider from 'material-ui/Divider';
-import {articleActions} from '~/article';
-
+import Divider from "material-ui/Divider";
+import {articleActions} from "~/article";
+import dateformat from "dateformat";
 import {
     Table,
     TableBody,
@@ -90,17 +90,24 @@ class List extends Component {
                     </TableHeader>
                     <TableBody>
                         {
-                            this.props.articles.map((row, index) => (
-                                <TableRow key={row.id}>
-                                    <TableRowColumn>{row.no}</TableRowColumn>
-                                    <TableRowColumn>
-                                        <Link to={`/articles/${row.id}`}>{row.title}</Link>
-                                    </TableRowColumn>
-                                    <TableRowColumn>{row.date}</TableRowColumn>
-                                    <TableRowColumn>{row.hit}</TableRowColumn>
-                                    <TableRowColumn>{row.author}</TableRowColumn>
-                                </TableRow>
-                            ))
+                            this.props.articles.map((row, index) => {
+                                const formattedDate = (_date) => (dateformat(new Date(_date), "yyyy-mm-dd"));
+                                const date = ((row) => {
+                                    if (row.updateDate) return formattedDate(row.updateDate);
+                                    return formattedDate(row.createDate);
+                                })(row);
+                                return (
+                                    <TableRow key={row.id}>
+                                        <TableRowColumn>{row.no}</TableRowColumn>
+                                        <TableRowColumn>
+                                            <Link to={`/articles/${row.id}`}>{row.title}</Link>
+                                        </TableRowColumn>
+                                        <TableRowColumn>{date}</TableRowColumn>
+                                        <TableRowColumn>{row.hit}</TableRowColumn>
+                                        <TableRowColumn>{row.author}</TableRowColumn>
+                                    </TableRow>
+                                )
+                            })
                         }
                     </TableBody>
                     <TableFooter/>

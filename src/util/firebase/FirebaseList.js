@@ -1,4 +1,4 @@
-import {firebaseDatabase} from "./firebase";
+import {firebaseDatabase, serverTime} from "./firebase";
 
 /**
  * 파이어 베이스 리스트
@@ -34,14 +34,18 @@ export class FirebaseList {
     }
 
     /**
-     *
+     * 생성
      * @param value
      * @returns {Promise}
      */
     push(value) {
         return new Promise((resolve, reject) => {
             firebaseDatabase.ref(this._path)
-                .push(value, error => error ? reject(error) : resolve());
+                .push((function (serverTime) {
+                    value['createDate'] = serverTime;
+                    console.log('value : ' + value);
+                    return value;
+                })(serverTime), error => error ? reject(error) : resolve());
         });
     }
 
@@ -73,7 +77,12 @@ export class FirebaseList {
     update(id, value) {
         return new Promise((resolve, reject) => {
             firebaseDatabase.ref(`${this._path}/${id}`)
-                .update(value, error => error ? reject(error) : resolve());
+                .update(
+                    (function (serverTime) {
+                        value['updateDate'] = serverTime;
+                        console.log('value : ' + value);
+                        return value;
+                    })(serverTime), error => error ? reject(error) : resolve());
         });
     }
 

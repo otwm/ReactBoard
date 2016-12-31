@@ -4,7 +4,8 @@ export const Article = new Record({
     id: 0,
     title: "",
     content: "",
-    createDate: new Date(),
+    createDate: null,
     updateDate: null,
-    hit: 0
+    hit: 1,
+    author: null
 });
