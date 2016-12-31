@@ -18,7 +18,12 @@
  => 쿼리만이 아니라 파베 데이터베이스를 랩핑하는 좀 더 규모있는 라이브러리인듯.
 * https://prescottprue.gitbooks.io/react-redux-firebase/content/queries.html
  => 오..음. 괜찮으나 파베의 정규 스펙을 뛰어 넘지는 못할 거 같애...
-* 현재는 좀 더 고도화된 라이브러리를 기대하는 것은 조금 어려울 수도... 
+* 현재는 좀 더 고도화된 라이브러리를 기대하는 것은 조금 어려울 수도...
+* 왠지 복잡한 쿼리를 지원하는 것은 당장은 어려울 수도 있다. 쥰내 아쉽네... 클라이언트에 다 넘기고,
+성능 이슈가 발생할 때, 서버 사이드(파베, 별도의 쿼리 용 노드 서버)를 활용하도록 하자!
 * https://github.com/MicheleBertoli/react-fix-it
  => 긋!
-* https://www.npmjs.com/package/react-immutable-proptypes 
+* https://www.npmjs.com/package/react-immutable-proptypes
+ 
+# 읽어보자!
+*  http://stackoverflow.com/questions/16239819/performance-of-firebase-with-large-data-sets

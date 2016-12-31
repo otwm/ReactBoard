@@ -21,4 +21,5 @@ export const firebaseDatabase = firebaseApp.database();
 export const firebaseAuth = firebaseApp.auth();
 
 export const serverTime = firebase.database.ServerValue.TIMESTAMP;
+
 firebase.database.enableLogging(true, true);
