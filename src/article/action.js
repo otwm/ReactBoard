@@ -48,7 +48,7 @@ export function updateArticleByLocal(article) {
 export function updateArticle(article) {
     return dispatch => {
         articleList.update(article.id, article)
-            .catch(error => dispatch(updateTaskError(error)));
+            .catch(error => dispatch(updateArticleError(error)));
     };
 }
 
@@ -59,7 +59,7 @@ export function updateArticleSuccess(article) {
     }
 }
 
-export function updateTaskError(error) {
+export function updateArticleError(error) {
     return {
         type: UPDATE_ARTICLE_ERROR,
         payload: error
@@ -101,9 +101,9 @@ export function deleteArticleSuccess(article) {
     };
 }
 
-export function loadArticles() {
+export function loadArticles(onLoadStart, onLoadEnd) {
     return (dispatch) => {
-        articleList.subscribe(dispatch)
+        articleList.subscribe(dispatch, onLoadStart, onLoadEnd)
     };
 }
 
@@ -119,3 +119,4 @@ export function loadArticle() {
         articleRecord.subscribe(dispatch)
     };
 }
+

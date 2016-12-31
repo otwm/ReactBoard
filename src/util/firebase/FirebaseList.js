@@ -91,16 +91,23 @@ export class FirebaseList {
      * action은 onLoad가 존재하여야 한다.
      * @param emit
      */
-    subscribe(emit) {
+    subscribe(emit,
+              onLoadStart,
+              onLoadEnd = () => {
+                  console.log('loaded!');
+              }) {
         let ref = firebaseDatabase.ref(this._path);
         let initialized = false;
 
         let list = [];
 
+        if (onLoadStart) onLoadStart();
+
         ref.once('value', () => {
             initialized = true;
             emit(this._actions.onLoad(list));//action은 onLoad가 존재하여야 한다.
-        });
+        }).then(onLoadEnd);
+
 
         ref.on('child_added', snapshot => {
             if (initialized) {

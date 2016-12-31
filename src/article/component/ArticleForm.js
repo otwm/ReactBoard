@@ -1,18 +1,17 @@
 import React, {Component} from "react";
-import * as articleActions from '../action';
+import * as articleActions from "../action";
 import {connect} from "react-redux";
 import {createSelector} from "reselect";
 import Header from "./Header";
 import {Card, CardActions} from "material-ui/Card";
 import RaisedButton from "material-ui/RaisedButton";
-import FlatButton from 'material-ui/FlatButton';
+import FlatButton from "material-ui/FlatButton";
 import TextField from "material-ui/TextField";
 import Divider from "material-ui/Divider";
-import Dialog from 'material-ui/Dialog';
-import {Link} from "react-router";
-import {browserHistory} from 'react-router'
-import {firebaseDatabase} from '@/firebase/firebase';
-import {Article} from '~/article/article';
+import Dialog from "material-ui/Dialog";
+import {Link, browserHistory} from "react-router";
+import {firebaseDatabase} from "@/firebase/firebase";
+import {Article} from "~/article/article";
 
 export class ArticleForm extends Component {
 
@@ -28,7 +27,14 @@ export class ArticleForm extends Component {
     }
 
     componentWillMount() {
-        this.props.loadArticles();
+        this.props.loadArticles(function () {
+
+            },
+            function () {
+                let {article} = this.props;
+                this.props.updateArticle(article.set("hit", article.hit + 1).toJSON());
+            }.bind(this)
+        );
     }
 
     componentWillUnmount() {
