@@ -11,6 +11,7 @@
 * 폼 시리얼 라이즈에 대해서도 한번 생각해보자. 예전부터 하고 있었던 것.
 * jsr-303 같은 거는 없나요???
 * 클라이언트에서 관계를 가지는 객체 조회 시 orm 처럼 관련 객체를 가지고 올 수 없는 가?(하이버네이트에서는 프록 시를 이용해서 가져왓엇다!)
+* 대용량 업로드
 
 # 이것은 뭐 다?!
 * https://github.com/davideast/Querybase#querybase-is-in-an-experiment-and-not-for-production-appssitesanything
